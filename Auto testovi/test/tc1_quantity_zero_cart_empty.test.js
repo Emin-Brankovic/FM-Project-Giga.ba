@@ -1,4 +1,4 @@
-import {By, until, expect, createDriver, disposeDriver, toSetUp, INFINITY_STOLICA_URL} from "./support/setup.js";
+import {By, until, expect, createDriver, disposeDriver, toSetUp} from "./support/setup.js";
 import {driverContext} from "./support/hooks.js";
 
 describe("TC1 - Quantity 0 empties cart (via minus button)", function () {
@@ -6,7 +6,7 @@ describe("TC1 - Quantity 0 empties cart (via minus button)", function () {
 
     it("Setting quantity to 0 via minus button should empty the cart", async function () {
         const driver = driverContext.driver;
-        await toSetUp(driver,INFINITY_STOLICA_URL);
+        await toSetUp(driver,"yt 820 crna","yt-820-crna");
 
         const qtyInput = await driver.wait(until.elementLocated(By.id("Quantity-1")), 15000);
 

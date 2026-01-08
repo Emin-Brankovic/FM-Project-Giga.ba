@@ -3,19 +3,7 @@ import { expect } from "chai";
 
 export const BASE_URL = "https://www.giga.ba";
 
-// hardcoded credentials (as requested)
-const LOGIN_EMAIL = "almedin2306@gmail.com";
-const LOGIN_PASSWORD = "test123";
-
-export const INFINITY_STOLICA_URL="https://giga.ba/products/infinity-kancelarijska-stolica-yt-820-crna?variant=43687263174832"
-export const INTEL_I3="https://giga.ba/products/procesor-za-cpu-intel-core-i3-12100f-3-3ghz?_pos=1&_sid=c1e4ac3c3&_ss=r"
-
 export const SELECTORS = {
-    // // LOGIN
-    // customerEmail: By.id("CustomerEmail"),
-    // customerPassword: By.id("CustomerPassword"),
-    // loginSubmitBtn: By.css("button.login__sign-in"),
-
     // CART
     cartRow: By.css("tr.cart-item"),
     quantityInput: By.css("input.quantity__input[name='updates[]']"),
@@ -53,39 +41,17 @@ export async function disposeDriver(driver) {
 }
 
 export async function searchAndOpenProduct(driver, productName, urlPart) {
-    // Simulate searching by going to the search URL (more reliable than finding the search bar icon)
     await driver.get(`${BASE_URL}/search?q=${productName}`);
 
-    // Find the product card based on the partial link href provided in your HTML
     const productLink = await driver.wait(
         until.elementLocated(By.css(`a[href*='${urlPart}']`)),
         10000
     );
     await productLink.click();
 
-    // Wait for product page to load (look for add to cart)
     await driver.wait(until.elementLocated(SELECTORS.addToCartBtn), 10000);
 }
 
-export async function login(driver) {
-    await driver.get(BASE_URL);
-    await driver.get(`${BASE_URL}/account/login`);
-
-    const emailInput = await driver.wait(until.elementLocated(SELECTORS.customerEmail), 10000);
-    await emailInput.clear();
-    await emailInput.sendKeys(LOGIN_EMAIL);
-
-    const passInput = await driver.findElement(SELECTORS.customerPassword);
-    await passInput.clear();
-
-    // Enter submit
-    await passInput.sendKeys(LOGIN_PASSWORD, Key.ENTER);
-
-    await driver.wait(async () => {
-        const url = await driver.getCurrentUrl();
-        return !url.includes("/account/login");
-    }, 15000);
-}
 
 export async function openCart(driver) {
     await driver.get(`${BASE_URL}/cart`);
@@ -111,28 +77,31 @@ export async function blur(driver) {
     await driver.actions().sendKeys(Key.TAB).perform();
 }
 
-export async function toSetUp(driver,url) {
-    await driver.get(url);
+export async function toSetUp(driver,productName,urlPart) {
 
-    // 2) Click quantity option (id=quantity-option-0)
+    await driver.get(`${BASE_URL}/search?q=${productName}`);
+
+    const productLink = await driver.wait(
+        until.elementLocated(By.css(`a[href*='${urlPart}']`)),
+        10000
+    );
+    await productLink.click();
+
     const qtyOption = await driver.wait(until.elementLocated(By.id("quantity-option-0")), 10000);
     await qtyOption.click();
 
-    // 3) Click Add to cart button (class: product-form__submit button, name=add)
     const addBtn = await driver.wait(
         until.elementLocated(By.css("button.product-form__submit.button")),
         15000
     );
     await addBtn.click();
 
-// --- Wait for cart drawer / modal to appear ---
     const goToBasketBtn = await driver.wait(
         async () => {
             try {
                 const el = await driver.findElement(By.css(".cart__link.button.button--simple"));
                 return (await el.isDisplayed()) ? el : null;
             } catch (err) {
-                // if element not found yet, keep waiting
                 return null;
             }
         },
@@ -142,7 +111,6 @@ export async function toSetUp(driver,url) {
 
 
 
-// Now click safely
     await goToBasketBtn.click();
 }
 

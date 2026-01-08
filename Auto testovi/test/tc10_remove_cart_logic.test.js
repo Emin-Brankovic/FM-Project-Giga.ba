@@ -4,7 +4,6 @@ import {
     until,
     expect,
     By,
-    Key
 } from "./support/setup.js";
 
 import { driverContext } from "./support/hooks.js";

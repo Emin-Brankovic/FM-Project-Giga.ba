@@ -1,6 +1,5 @@
 import {
-    createDriver, disposeDriver,
-    SELECTORS, until, expect, By, Key, toSetUp,INFINITY_STOLICA_URL
+    SELECTORS, until, expect, By, Key, toSetUp
 } from "./support/setup.js";
 import {driverContext} from "./support/hooks.js";
 
@@ -9,7 +8,7 @@ describe("TC4 - Required phone input", function () {
 
     it("Phone field should show validation error when invalid/empty", async function () {
         const driver = driverContext.driver;
-        await toSetUp(driver,INFINITY_STOLICA_URL);
+        await toSetUp(driver,"yt 820 crna","yt-820-crna");
 
         const qty = await driver.wait(until.elementLocated(SELECTORS.quantityInput), 10000);
 

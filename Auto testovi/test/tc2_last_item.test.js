@@ -1,6 +1,4 @@
 import {
-    createDriver,
-    disposeDriver,
     searchAndOpenProduct,
     SELECTORS,
     until,
@@ -29,7 +27,7 @@ describe("TC2 - Add CHAHO MASAŽNA GAMING GEJMERSKA STOLICA CRNA and Remove (Car
         await addToCart.click();
         await driver.sleep(2000);
 
-         const cartRemoveBtn = await driver.findElement(SELECTORS.cartRemoveBtn);
+        const cartRemoveBtn = await driver.findElement(SELECTORS.cartRemoveBtn);
         await cartRemoveBtn.click();
         await driver.sleep(2000);
 
@@ -38,5 +36,5 @@ describe("TC2 - Add CHAHO MASAŽNA GAMING GEJMERSKA STOLICA CRNA and Remove (Car
         expect(emptyText).to.include("Vaša Košarica je prazna");
 
 
-});
+    });
 });

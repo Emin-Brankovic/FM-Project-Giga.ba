@@ -1,6 +1,5 @@
 import {
-    createDriver, disposeDriver,
-    SELECTORS, until, expect, toSetUp, INFINITY_STOLICA_URL
+    SELECTORS, until, expect, toSetUp
 } from "./support/setup.js";
 import {driverContext} from "./support/hooks.js";
 
@@ -10,7 +9,7 @@ describe("TC7 - Quantity 157 resets", function () {
     it("Setting quantity to 157 should be rejected (not remain 157)", async function () {
 
         const driver = driverContext.driver;
-        await toSetUp(driver,INFINITY_STOLICA_URL);
+        await toSetUp(driver,"yt 820 crna","yt-820-crna");
 
         const rowsBefore = await driver.findElements(SELECTORS.cartRow);
         expect(rowsBefore.length).to.be.greaterThan(0);

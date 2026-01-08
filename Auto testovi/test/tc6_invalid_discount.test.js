@@ -1,6 +1,4 @@
 import {
-    createDriver,
-    disposeDriver,
     searchAndOpenProduct,
     SELECTORS,
     until,

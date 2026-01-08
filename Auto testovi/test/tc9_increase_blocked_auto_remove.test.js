@@ -1,12 +1,9 @@
 import {
-    createDriver,
-    disposeDriver,
     searchAndOpenProduct,
     SELECTORS,
     until,
     expect,
-    By,
-    Key
+    By
 } from "./support/setup.js";
 import {driverContext} from "./support/hooks.js";
 

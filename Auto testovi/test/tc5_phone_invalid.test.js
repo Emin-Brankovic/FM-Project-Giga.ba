@@ -1,6 +1,5 @@
 import {
-    createDriver, disposeDriver, openCheckoutFromCart,
-    SELECTORS, until, expect, By, toSetUp,Key,INFINITY_STOLICA_URL
+    SELECTORS, until, expect, By, toSetUp,Key
 } from "./support/setup.js";
 import {driverContext} from "./support/hooks.js";
 
@@ -10,7 +9,7 @@ describe("EG TC1 - Postal code special characters", function () {
     it("TC5 - Invalid phone format", async function () {
         const driver = driverContext.driver;
 
-        await toSetUp(driver,INFINITY_STOLICA_URL);
+        await toSetUp(driver,"yt 820 crna","yt-820-crna");
 
         const qty = await driver.wait(until.elementLocated(SELECTORS.quantityInput), 10000);
 
